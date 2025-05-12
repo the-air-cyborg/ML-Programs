@@ -1,0 +1,26 @@
+import pandas as pd
+import matplotlib as plt
+data=pd.DataFrame(
+    {
+        "id": [1,2,3,4,5],
+        "age":[23,43,43,54,32],
+        "salary":[23434,45342,45323,54332,34566],
+        "gender":["male","female","male","male","female"],
+        "occupation":["it","marketing","teacher","it","doctor"]
+    }
+)
+
+data.to_csv('data.csv', index=False)
+
+df=pd.read_csv('data.csv')
+
+df=pd.read_csv('data.csv',usecols=['id','salary','gender'])
+
+print("basic operations")
+print(df.head(3))
+print(df.tail(3))
+print(df.sample())
+print(df.describe())
+print(df.dtypes)
+
+avg_salary=df.groupby('gender')['salary'].mean().plot(kind='bar', color=['pink','blue'],title='Average salary',ylabel='salary')
