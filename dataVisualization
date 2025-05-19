@@ -1,0 +1,57 @@
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+
+# Load Iris dataset
+iris = load_iris()
+df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+df['species'] = iris.target
+df['species'] = df['species'].map({0: 'setosa', 1: 'versicolor', 2: 'virginica'})
+
+# 1. Pairplot
+sns.pairplot(df, hue='species')
+plt.suptitle("1. Pairplot of Iris Features", y=1.02)
+plt.show()
+
+# 2. Heatmap (Correlation Matrix)
+plt.figure(figsize=(8, 6))
+sns.heatmap(df.iloc[:, :-1].corr(), annot=True, cmap='coolwarm')
+plt.title("2. Feature Correlation Heatmap")
+plt.show()
+
+# 3. Boxplot
+plt.figure(figsize=(8, 6))
+sns.boxplot(data=df, x='species', y='sepal length (cm)')
+plt.title("3. Sepal Length Distribution by Species")
+plt.show()
+
+# 4. Violin Plot
+plt.figure(figsize=(8, 6))
+sns.violinplot(data=df, x='species', y='petal width (cm)')
+plt.title("4. Petal Width Violin Plot")
+plt.show()
+
+# 5. Swarmplot
+plt.figure(figsize=(8, 6))
+sns.swarmplot(data=df, x='species', y='sepal width (cm)')
+plt.title("5. Swarmplot of Sepal Width")
+plt.show()
+
+# 6. Stripplot
+plt.figure(figsize=(8, 6))
+sns.stripplot(data=df, x='species', y='petal length (cm)', jitter=True)
+plt.title("6. Stripplot of Petal Length")
+plt.show()
+
+# 7. Histogram with KDE
+plt.figure(figsize=(8, 6))
+sns.histplot(data=df, x='sepal length (cm)', kde=True, hue='species', multiple='stack')
+plt.title("7. Sepal Length Histogram with KDE")
+plt.show()
+
+# 8. Countplot
+plt.figure(figsize=(8, 6))
+sns.countplot(data=df, x='species')
+plt.title("8. Countplot of Species")
+plt.show()
